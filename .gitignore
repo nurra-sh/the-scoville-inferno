@@ -1,0 +1,5 @@
+# Local History & Extensions
+.history/
+
+# VS Code / Cursor Workspaces
+*.code-workspace

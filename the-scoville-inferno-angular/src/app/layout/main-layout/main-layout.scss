@@ -1,0 +1,26 @@
+:host {
+    --app-header-height: 64px;
+}
+
+.app-shell {
+    min-height: 100dvh;
+    background: var(--p-surface-0);
+}
+
+.container {
+    width: min(1315px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.app-main {
+    padding: 1.25rem 0 2rem;
+}
+
+.auth-container {
+    &.active {
+        background-image: url('../../../assets/images/pattern.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

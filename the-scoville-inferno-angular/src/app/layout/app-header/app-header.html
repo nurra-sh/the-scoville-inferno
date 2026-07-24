@@ -1,0 +1,20 @@
+<header class="app-header">
+    <div class="container header-inner">
+        <a class="brand" routerLink="/products">
+            <img src="main-logo.svg" alt="logo" />
+            <span class="brand-text">The Scoville Inferno</span>
+        </a>
+
+        <nav class="nav">
+            <a class="nav-link" routerLink="/products" routerLinkActive="active">Products</a>
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Community</a>
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Resources</a>
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Contact</a>
+        </nav>
+
+        <div class="actions">
+            <a routerLink="/login"><button pButton label="Sign in" severity="secondary" outlined="true">Sign in</button></a>
+            <a routerLink="/register"><button pButton label="Register">Register</button></a>
+        </div>
+    </div>
+</header>

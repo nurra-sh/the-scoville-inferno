@@ -1,0 +1,28 @@
+info:
+  name: register
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{BASE_URL}}/auth/register"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "admin1@example.com",
+        "password":"Qwerty123!",
+        "password_confirmation": "Qwerty123!",
+        "fullName": "Admin Adminov1"
+      }
+
+runtime:
+  variables:
+    - name: BASE_URL
+      value: http://localhost:3333/api/v1
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

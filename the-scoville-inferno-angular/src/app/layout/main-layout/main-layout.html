@@ -1,0 +1,8 @@
+<div class="app-shell">
+  <app-header />
+  <div [class]="'auth-container' + ((route() === '/login' || route() === '/register') ? ' active' : '')">
+      <main class="container app-main">
+          <router-outlet />
+      </main>
+  </div>
+</div>
