@@ -60,7 +60,7 @@
                         }
                     </div>
 
-                    <button type="submit" pButton>Sign up</button>
+                    <button [loading]="loading()" type="submit" pButton>Sign up</button>
 
                     <p class="login-register-text">Already have an account? <a routerLink="/login"><p-button
                                 label="Login" link /></a></p>

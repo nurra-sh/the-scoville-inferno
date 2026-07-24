@@ -35,7 +35,7 @@
                       }
                   </div>
 
-                  <button type="submit" pButton>Sign in</button>
+                  <button [loading]="loading()" type="submit" pButton>Sign up</button>
 
                   <p class="login-register-text">Don't have an account? <a routerLink="/register"><p-button
                               label="Register" link /></a></p>

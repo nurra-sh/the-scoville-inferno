@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -6,7 +6,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { AuthApi } from '../../modules/auth/services/auth-api';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -15,8 +16,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login-page.scss',
 })
 export class LoginPage {
+  private readonly router = inject(Router)
   private readonly formBuilder = inject(NonNullableFormBuilder)
   private readonly authApi = inject(AuthApi)
+  private readonly loadingSignal = signal<boolean>(false)
+
+  readonly loading = this.loadingSignal.asReadonly()
 
   readonly loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -28,10 +33,17 @@ export class LoginPage {
       return;
     }
 
-    this.authApi.login(this.loginForm.getRawValue()).subscribe({
-      next: (response) => {
-        console.log(response)
-      }
-    })
+    this.loadingSignal.set(true)
+    this.authApi.login(this.loginForm.getRawValue())
+      .pipe(finalize(() => this.loadingSignal.set(false)))
+      .subscribe({
+        next: (response) => {
+          console.log(response)
+          if (response) {
+            // TODO: TEMP - /test поменять на главную страницу
+            this.router.navigateByUrl('/test')
+          }
+        }
+      })
   }
 }

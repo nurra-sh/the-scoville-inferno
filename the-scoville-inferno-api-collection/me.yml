@@ -1,0 +1,19 @@
+info:
+  name: me
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{BASE_URL}}/auth/me"
+  headers:
+    - name: Authorization
+      value: Bearer oat_MTc.SGxwZDBUa1RrZ1c4aHVUWFg3TFBFcG1Gbm4xVEpHdDktd0trZUVEWTI1NjMxNDA2MTE
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+​

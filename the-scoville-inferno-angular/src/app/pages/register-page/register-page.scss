@@ -1,8 +1,4 @@
 .login-page {
-    background-image: url('../../../assets/images/pattern.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     min-height: calc(100dvh - var(--app-header-height));
     display: flex;
     justify-content: center;

@@ -13,8 +13,13 @@
         </nav>
 
         <div class="actions">
-            <a routerLink="/login"><button pButton label="Sign in" severity="secondary" outlined="true">Sign in</button></a>
+            @if (!isAuthenticated()) {
+                <a routerLink="/login"><button pButton label="Sign in" severity="secondary" outlined="true">Sign in</button></a>
             <a routerLink="/register"><button pButton label="Register">Register</button></a>
+            }
+            @if (isAuthenticated()) {
+                <button (click)="logout()" pButton label="Logout" severity="secondary" outlined="true">Logout</button>
+            } 
         </div>
     </div>
 </header>

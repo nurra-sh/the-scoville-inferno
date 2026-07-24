@@ -1,0 +1,1 @@
+export const APP_TOAST_KEY = 'app'as const;

@@ -28,3 +28,7 @@ export interface RegisterBody {
 export interface RegisterResponse {
     message: string
 }
+
+export interface GetMeResponse {
+    user: User
+}

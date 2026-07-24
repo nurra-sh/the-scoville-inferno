@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { PasswordModule } from 'primeng/password';
 import { RouterLink } from '@angular/router';
 import { AuthApi } from '../../modules/auth/services/auth-api';
 import { mustMatch } from '../../shared/validators/must-watch.validator';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -20,6 +21,9 @@ export class RegisterPage {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly authApi = inject(AuthApi);
   private readonly router = inject(Router);
+  private readonly loadingSignal = signal<boolean>(false)
+
+  readonly loading = this.loadingSignal.asReadonly()
 
   readonly registerForm = this.formBuilder.group({
     fullName: ['', []],
@@ -33,10 +37,13 @@ export class RegisterPage {
       return;
     }
 
-    this.authApi.register(this.registerForm.getRawValue()).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      }
-    });
+    this.authApi.register(this.registerForm.getRawValue())
+      .pipe(finalize(() => this.loadingSignal.set(false)))
+      .subscribe({
+        next: () => {
+          this.loadingSignal.set(true)
+          this.router.navigate(['/login']);
+        }
+      });
   }
 }

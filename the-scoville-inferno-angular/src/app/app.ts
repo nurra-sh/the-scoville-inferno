@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
+import { APP_TOAST_KEY } from './core/constants/toats.constants';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { ToastModule } from 'primeng/toast';
 })
 export class App {
   protected readonly title = signal('the-scoville-inferno-angular');
-  protected readonly toastKey = 'app';
+  protected readonly toastKey = APP_TOAST_KEY;
 }

@@ -1,7 +1,7 @@
-import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
-import { loginValidator } from '#validators/auth'
-import { registerValidator } from '#validators/auth'
+import { loginValidator, registerValidator } from '#validators/auth'
+import type { HttpContext } from '@adonisjs/core/http'
+
 export default class AuthController {
     async login({ request, response }: HttpContext) {
         const { email, password } = await request.validateUsing(loginValidator)
@@ -12,9 +12,9 @@ export default class AuthController {
 
         return response.ok({
             type: 'bearer',
-            value: token.value!.release(),
+            token: token.value!.release(),
             user: user.serialize(),
-            message: `Welcome back,  ${user.fullName}!`,
+            message: `Welcome back, ${user.fullName}!`,
         })
     }
 
@@ -25,6 +25,14 @@ export default class AuthController {
 
         return response.created({
             message: 'User registered successfully',
+        })
+    }
+
+    async me({ auth, response }: HttpContext) {
+        await auth.check()
+        
+        response.ok({
+            user: auth.user
         })
     }
 }
