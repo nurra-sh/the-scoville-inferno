@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { User } from '../types/auth.types';
+import { RolesEnum, RolesIdEnum, User } from '../types/auth.types';
 import { TOKEN_KEY } from '../../../core/constants/auth.constants';
 
 @Injectable({
@@ -10,11 +10,25 @@ export class Auth {
     private readonly currentUserSignal = signal<User | null>(null)
     readonly token = this.tokenSignal.asReadonly()
     readonly currentUser = this.currentUserSignal.asReadonly()
-  
+
     readonly isAuthenticated = computed(() => {
-      return Boolean(this.token()) && Boolean(this.currentUser())
+        return Boolean(this.token()) && Boolean(this.currentUser())
     })
-  
+
+    hasRoles(roles: RolesEnum[]) {
+        let hasRole = false
+
+        if (this.isAuthenticated()) {
+            for (const role of roles) {
+                if (this.currentUser()?.roleId === RolesIdEnum[role]) {
+                    hasRole = true
+                }
+            }
+        }
+
+        return hasRole
+    }
+
     setToken(token: string) {
         this.tokenSignal.set(token)
         this.addTokenToLocalStorage(token)
@@ -49,4 +63,4 @@ export class Auth {
     private removeTokenFromLocalStorage() {
         return localStorage.removeItem(TOKEN_KEY)
     }
-  }
+}

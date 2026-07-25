@@ -14,6 +14,7 @@ export interface User {
     id: number
     fullName: string
     email: string
+    roleId: RolesIdEnum
     createdAt: string
     updatedAt: string
 }
@@ -31,4 +32,14 @@ export interface RegisterResponse {
 
 export interface GetMeResponse {
     user: User
+}
+
+export enum RolesEnum {
+    ADMIN = 'ADMIN',
+    USER = 'USER'
+}
+
+export enum RolesIdEnum {
+    ADMIN = 2,
+    USER = 1
 }

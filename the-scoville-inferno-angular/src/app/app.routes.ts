@@ -5,6 +5,10 @@ import { MainLayout } from './layout/main-layout/main-layout';
 import { TestPage } from './pages/test-page/test-page';
 import authGuard from './modules/auth/guards/auth.guard';
 import guestGuard from './modules/auth/guards/guest.guard';
+import { AdminProductsPage } from './pages/admin/admin-products-page/admin-products-page';
+import { RouterOutletShell } from './layout/router-outlet-shell/router-outlet-shell';
+import { roleGuard } from './modules/auth/guards/role.guard';
+import { RolesEnum } from './modules/auth/types/auth.types';
 
 export const routes: Routes = [
     {
@@ -25,6 +29,17 @@ export const routes: Routes = [
                 path: 'test',
                 component: TestPage,
                 canActivate: [authGuard] 
+            },
+            {
+                path: 'admin',
+                component: RouterOutletShell,
+                canActivate: [authGuard, roleGuard([RolesEnum.ADMIN])],
+                children: [
+                    {
+                      path: 'products',
+                      component: AdminProductsPage  
+                    }
+                ]
             }
         ]
     }
