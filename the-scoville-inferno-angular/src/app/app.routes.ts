@@ -9,12 +9,19 @@ import { AdminProductsPage } from './pages/admin/admin-products-page/admin-produ
 import { RouterOutletShell } from './layout/router-outlet-shell/router-outlet-shell';
 import { roleGuard } from './modules/auth/guards/role.guard';
 import { RolesEnum } from './modules/auth/types/auth.types';
+import { ProductsPage } from './pages/products-page/products-page';
+import { ProductDetailsPage } from './pages/product-details-page/product-details-page';
 
 export const routes: Routes = [
     {
         path: '',
         component: MainLayout,
         children: [
+            {
+                path: '',
+                redirectTo: '/products',
+                pathMatch: 'full'
+            },
             {
                 path: 'login',
                 component: LoginPage,
@@ -29,6 +36,20 @@ export const routes: Routes = [
                 path: 'test',
                 component: TestPage,
                 canActivate: [authGuard] 
+            },
+            {
+                path: 'products',
+                component: RouterOutletShell,
+                children: [
+                    {
+                        path: '',
+                        component: ProductsPage
+                    },
+                    {
+                        path: ':id',
+                        component: ProductDetailsPage
+                    }
+                ]
             },
             {
                 path: 'admin',

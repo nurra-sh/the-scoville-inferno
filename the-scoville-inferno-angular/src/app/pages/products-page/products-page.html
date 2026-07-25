@@ -1,0 +1,152 @@
+<div class="products-layout">
+    <!-- Сайдбар с фильтрами -->
+    <aside class="filters">
+        @if (activeFilterChips().length > 0) {
+        <div class="filters-block">
+            <h3 class="filters-title">Keywords</h3>
+            <div class="chips">
+                @for (chip of activeFilterChips(); track chip.label) {
+                <button type="button" class="chip" (click)="chip.remove()">
+                    {{ chip.label }} <span class="chip-x">✕</span>
+                </button>
+                }
+            </div>
+        </div>
+        }
+
+        <div class="filters-block">
+            <h3 class="filters-title">Product Type</h3>
+            @for (category of categories(); track category.id) {
+            <label class="filter-option">
+                <p-checkbox
+                    [binary]="true"
+                    [ngModel]="selectedCategoryId() === category.id"
+                    (ngModelChange)="toggleCategory(category.id)"
+                />
+                <span>{{ category.name }}</span>
+            </label>
+            }
+        </div>
+
+        <div class="filters-block">
+            <h3 class="filters-title">Filter by Agony Level</h3>
+            @for (heatLevel of heatLevels(); track heatLevel.id) {
+            <label class="filter-option">
+                <p-checkbox
+                    [binary]="true"
+                    [ngModel]="selectedHeatLevelId() === heatLevel.id"
+                    (ngModelChange)="toggleHeatLevel(heatLevel.id)"
+                />
+                <span>{{ heatLevel.name }}</span>
+            </label>
+            }
+        </div>
+    </aside>
+
+    <!-- Список товаров -->
+    <section class="catalog">
+        <div class="catalog-toolbar">
+            <span class="search">
+                <input
+                    pInputText
+                    type="text"
+                    placeholder="Find your pain"
+                    [formControl]="searchControl"
+                />
+            </span>
+
+            <div class="sort">
+                @for (option of sortOptions; track option.key) {
+                <button
+                    type="button"
+                    class="sort-option"
+                    [class.active]="activeSort() === option.key"
+                    (click)="setSort(option.key)"
+                >
+                    {{ option.label }}
+                </button>
+                }
+            </div>
+        </div>
+
+        @if (loading()) {
+        <div class="products-grid">
+            @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+            <div class="product-card">
+                <p-skeleton height="180px" />
+                <div class="product-card-body">
+                    <p-skeleton width="70%" />
+                    <p-skeleton width="40%" />
+                </div>
+            </div>
+            }
+        </div>
+        } @else if (products().length === 0) {
+        <div class="empty-state">
+            <span class="empty-emoji">🥵</span>
+            <p>Ничего не нашлось. Попробуйте ослабить фильтры.</p>
+        </div>
+        } @else {
+        <div class="products-grid">
+            @for (product of products(); track product.id) {
+            <a class="product-card" [routerLink]="['/products', product.id]">
+                @if (product.imageUrl) {
+                <img class="product-image" [src]="product.imageUrl" [alt]="product.name" />
+                } @else {
+                <div class="product-image placeholder">🌶️</div>
+                }
+                <div class="product-card-body">
+                    <h4 class="product-name">{{ product.name }}</h4>
+                    <div class="product-price">${{ product.price }}</div>
+                    @if (product.description) {
+                    <p class="product-description">{{ product.description }}</p>
+                    }
+                    @if (!product.inStock) {
+                    <span class="out-of-stock">Out of stock</span>
+                    }
+                </div>
+            </a>
+            }
+        </div>
+
+        @if (meta(); as pagination) {
+        <nav class="pagination">
+            <button
+                type="button"
+                class="page-step"
+                [disabled]="page() === 1"
+                (click)="goToPage(page() - 1)"
+            >
+                ← Weaker
+            </button>
+
+            <div class="page-numbers">
+                @for (pageNumber of pageNumbers(); track $index) {
+                @if (pageNumber === '...') {
+                <span class="page-ellipsis">…</span>
+                } @else {
+                <button
+                    type="button"
+                    class="page-number"
+                    [class.active]="pageNumber === page()"
+                    (click)="goToPage(pageNumber)"
+                >
+                    {{ pageNumber }}
+                </button>
+                }
+                }
+            </div>
+
+            <button
+                type="button"
+                class="page-step"
+                [disabled]="page() === pagination.lastPage"
+                (click)="goToPage(page() + 1)"
+            >
+                Stronger →
+            </button>
+        </nav>
+        }
+        }
+    </section>
+</div>

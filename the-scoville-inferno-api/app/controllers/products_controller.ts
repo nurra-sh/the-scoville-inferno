@@ -15,9 +15,9 @@ export default class ProductsController {
 
     const query = Product.query()
       .where('is_active', true)
-      .preload('category', (q) => q.select())
-      .preload('brand', (q) => q.select())
-      .preload('heatLevel', (q) => q.select())
+      .preload('category', (q) => q.select('*'))
+      .preload('brand', (q) => q.select('*'))
+      .preload('heatLevel', (q) => q.select('*'))
 
     if (filters.categoryId) {
       query.where('category_id', filters.categoryId)
@@ -78,5 +78,22 @@ export default class ProductsController {
     const products = await query.paginate(page, perPage)
 
     return response.ok(products)
+  }
+
+
+  async show({ params, response }: HttpContext) {
+    const product = await Product.query()
+      .where('id', params.id)
+      .where('is_active', true)
+      .preload('category', (q) => q.select('*'))
+      .preload('brand', (q) => q.select('*'))
+      .preload('heatLevel', (q) => q.select('*'))
+      .first()
+  
+    if (!product) {
+      return response.notFound({ message: 'Product not found' })
+    }
+  
+    return response.ok({ data: product })
   }
 }

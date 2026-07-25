@@ -11,15 +11,13 @@ const guestGuard: CanActivateFn = () => {
 
     // Если есть токен и данные пользователя, то делаем редайрект
     if (authService.isAuthenticated()) {
-        // TODO: TEMP - /test поменять на главную страницу
-        return of(router.createUrlTree(['/test']))
+        return of(router.createUrlTree(['/']))
     }
 
     // Пытаемся получить пользователя, если есть хотя бы токен
     if(authService.token() && !authService.currentUser()) {
         return authApi.me().pipe(
-            // TODO: TEMP - /test поменять на главную страницу
-            map(() => router.createUrlTree(['/test'])),
+            map(() => router.createUrlTree(['/'])),
             catchError(() => of(true))
         )
     }

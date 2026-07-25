@@ -6,7 +6,7 @@ export default class HeatLevelsController {
     async index({ response }: HttpContext) {
         const query = await HeatLevel.query().orderBy('updatedAt')
         return response.json({
-          brands: query,
+          data: query,
         })
       }
 }

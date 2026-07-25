@@ -49,6 +49,7 @@ router
       router
         .group(() => {
           router.get('/', [ProductsController, 'index'])
+          router.get('/:id', [ProductsController, 'show'])
         })
         .prefix('/products'))
   })

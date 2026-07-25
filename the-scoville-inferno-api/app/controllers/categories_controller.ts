@@ -5,7 +5,7 @@ export default class CategoriesController {
     async index({ response }: HttpContext) {
         const query = await Category.query().orderBy('updatedAt')
         return response.json({
-            brands: query,
+            data: query,
         })
     }
 }
