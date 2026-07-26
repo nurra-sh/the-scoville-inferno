@@ -15,6 +15,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { environment } from '../../../environments/environment';
+import { Pagination } from "../../shared/ui/pagination/pagination";
 
 const SORT_OPTIONS = [
   { key: 'new', label: 'New' },
@@ -29,7 +30,7 @@ const PER_PAGE = 12;
 
 @Component({
   selector: 'app-products-page',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, ButtonModule, CheckboxModule, InputTextModule, SkeletonModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, ButtonModule, CheckboxModule, InputTextModule, SkeletonModule, Pagination],
   templateUrl: './products-page.html',
   styleUrl: './products-page.scss',
 })
@@ -74,31 +75,7 @@ export class ProductsPage {
 
     return chips;
   });
-
-  readonly pageNumbers = computed(() => {
-    const meta = this.meta();
-    if (!meta) {
-      return [];
-    }
-
-    const pages = new Set<number>([1, meta.lastPage]);
-    for (let p = this.page() - 1; p <= this.page() + 1; p++) {
-      if (p >= 1 && p <= meta.lastPage) {
-        pages.add(p);
-      }
-    }
-
-    const sorted = [...pages].sort((a, b) => a - b);
-    const result: (number | '...')[] = [];
-    for (let i = 0; i < sorted.length; i++) {
-      if (i > 0 && sorted[i] - sorted[i - 1] > 1) {
-        result.push('...');
-      }
-      result.push(sorted[i]);
-    }
-    return result;
-  });
-
+  
   constructor() {
     this.loadReferences();
     this.loadProducts();

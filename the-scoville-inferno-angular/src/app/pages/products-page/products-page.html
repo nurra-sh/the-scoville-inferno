@@ -95,29 +95,7 @@
         </div>
 
         @if (meta(); as pagination) {
-        <nav class="pagination">
-            <button type="button" class="page-step" [disabled]="page() === 1" (click)="goToPage(page() - 1)">
-                ← Weaker
-            </button>
-
-            <div class="page-numbers">
-                @for (pageNumber of pageNumbers(); track $index) {
-                @if (pageNumber === '...') {
-                <span class="page-ellipsis">…</span>
-                } @else {
-                <button type="button" class="page-number" [class.active]="pageNumber === page()"
-                    (click)="goToPage(pageNumber)">
-                    {{ pageNumber }}
-                </button>
-                }
-                }
-            </div>
-
-            <button type="button" class="page-step" [disabled]="page() === pagination.lastPage"
-                (click)="goToPage(page() + 1)">
-                Stronger →
-            </button>
-        </nav>
+            <app-pagination [meta]="pagination" (pageChange)="goToPage($event)" />
         }
         }
     </section>

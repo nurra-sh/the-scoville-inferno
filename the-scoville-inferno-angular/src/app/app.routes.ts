@@ -12,6 +12,7 @@ import { RolesEnum } from './modules/auth/types/auth.types';
 import { ProductsPage } from './pages/products-page/products-page';
 import { ProductDetailsPage } from './pages/product-details-page/product-details-page';
 import { AdminProductFormPage } from './pages/admin/admin-product-form-page/admin-product-form-page';
+import { AccountPage } from './pages/account-page/account-page';
 
 export const routes: Routes = [
     {
@@ -41,6 +42,7 @@ export const routes: Routes = [
             {
                 path: 'products',
                 component: RouterOutletShell,
+                canActivate: [authGuard],
                 children: [
                     {
                         path: '',
@@ -51,6 +53,11 @@ export const routes: Routes = [
                         component: ProductDetailsPage
                     }
                 ]
+            },
+            {
+                path: 'account',
+                component: AccountPage,
+                canActivate: [authGuard] 
             },
             {
                 path: 'admin',

@@ -19,6 +19,11 @@
             <a routerLink="/register"><button pButton label="Register">Register</button></a>
             }
             @if (isAuthenticated()) {
+                <a routerLink="/account">
+                    <button pButton severity="secondary" outlined="true">
+                      <i class="pi pi-user" pButtonIcon></i>
+                    </button>
+                  </a>
                 <button (click)="logout()" pButton label="Logout" severity="secondary" outlined="true">Logout</button>
             } 
         </div>

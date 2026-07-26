@@ -14,6 +14,7 @@ import CategoriesController from '#controllers/categories_controller'
 import HeatLevelsController from '#controllers/heat_levels_controller'
 import ProductsController from '#controllers/products_controller'
 import { RolesEnum } from '#enums/role_enums'
+import ProfilesController from '#controllers/profiles_controller'
 
 const AuthController = () => import('#controllers/auth_controller')
 router.get('/', async () => {
@@ -52,7 +53,12 @@ router
           router.get('/', [ProductsController, 'index'])
           router.get('/:id', [ProductsController, 'show'])
         })
-        .prefix('/products'))
+        .prefix('/products')),
+      router
+        .group(() => {
+          router.patch('/', [ProfilesController, 'update'])
+        })
+        .prefix('/profile')
   })
   .prefix('/api/v1')
 

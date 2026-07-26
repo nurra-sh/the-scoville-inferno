@@ -15,6 +15,9 @@ export interface User {
     fullName: string
     email: string
     roleId: RolesIdEnum
+    phone: string | null
+    city: string | null
+    shippingAddress: string | null
     createdAt: string
     updatedAt: string
 }

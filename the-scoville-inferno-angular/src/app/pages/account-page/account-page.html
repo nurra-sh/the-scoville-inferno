@@ -1,0 +1,71 @@
+<div class="account-page">
+    <div class="account-card">
+      <header class="account-header">
+        <div>
+          <h1 class="account-title">My profile</h1>
+          <p class="account-subtitle">Manage your personal data and shipping address</p>
+        </div>
+      </header>
+  
+      <form class="account-form" [formGroup]="form" (ngSubmit)="onSave()">
+        <div class="form-field">
+          <label for="fullName">Full name</label>
+          <input
+            pInputText
+            id="fullName"
+            formControlName="fullName"
+            placeholder="John Doe"
+            [class.ng-invalid]="form.controls.fullName.invalid && form.controls.fullName.touched"
+          />
+          @if (form.controls.fullName.invalid && form.controls.fullName.touched) {
+            <small class="field-error">Please enter your name</small>
+          }
+        </div>
+  
+  
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input
+            pInputMask="+7 (999) 999-99-99"
+            inputId="phone"
+            formControlName="phone"
+            placeholder="+7 (___) ___-__-__"
+            [autoClear]="false"
+            class="p-inputtext phone-number-mask"
+          />
+        </div>
+  
+  
+        <div class="form-field">
+          <label for="city">City</label>
+          <input
+            pInputText
+            id="city"
+            formControlName="city"
+            placeholder="Almaty"
+          />
+        </div>
+  
+        <div class="form-field">
+          <label for="shippingAddress">Shipping address</label>
+          <textarea
+            pTextarea
+            id="shippingAddress"
+            formControlName="shippingAddress"
+            rows="3"
+            placeholder="Street, building, apartment, postal code"
+          ></textarea>
+        </div>
+  
+        <div class="form-actions">
+            
+          <p-button
+            type="submit"
+            label="Save changes"
+            icon="pi pi-check"
+            [disabled]="form.invalid || form.pristine"
+          />
+        </div>
+      </form>
+    </div>
+  </div>

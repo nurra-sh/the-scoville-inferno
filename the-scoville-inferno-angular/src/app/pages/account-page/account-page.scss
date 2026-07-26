@@ -1,0 +1,105 @@
+.account-page {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  
+  .account-card {
+    width: 100%;
+    max-width: 640px;
+    background: var(--p-content-background, #fff);
+    border: 1px solid var(--p-content-border-color, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 6%);
+  }
+  
+  .account-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .account-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .account-subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--p-text-muted-color, #6b7280);
+  }
+  
+  .account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+  
+    input,
+    textarea {
+      width: 100%;
+    }
+  
+    textarea {
+      resize: vertical;
+    }
+  }
+  
+  .field-hint {
+    font-size: 0.75rem;
+    color: var(--p-text-muted-color, #9ca3af);
+  }
+  
+  .field-error {
+    font-size: 0.75rem;
+    color: var(--p-red-500, #ef4444);
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+  
+  .phone-number-mask {
+    display: block;
+  
+    ::ng-deep input {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 560px) {
+    .account-card {
+      padding: 1.5rem;
+    }
+  
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  
+    .account-header {
+      flex-direction: column;
+    }
+  }

@@ -1,0 +1,6 @@
+<p-paginator
+  [first]="first()"
+  [rows]="meta().perPage"
+  [totalRecords]="meta().total"
+  (onPageChange)="onPageChange($event)"
+/>

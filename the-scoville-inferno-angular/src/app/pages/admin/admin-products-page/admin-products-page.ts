@@ -9,12 +9,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { Pagination } from "../../../shared/ui/pagination/pagination";
 
 const PER_PAGE = 8
 
 @Component({
   selector: 'app-admin-products-page',
-  imports: [ReactiveFormsModule, DatePipe, ButtonModule, InputTextModule],
+  imports: [ReactiveFormsModule, DatePipe, ButtonModule, InputTextModule, Pagination],
   templateUrl: './admin-products-page.html',
   styleUrl: './admin-products-page.scss',
 })
@@ -28,30 +29,6 @@ export class AdminProductsPage {
   readonly meta = signal<PaginationMeta | null>(null);
   readonly loading = signal<boolean>(true);
   readonly page = signal<number>(1);
-
-  readonly pageNumbers = computed(() => {
-    const meta = this.meta();
-    if (!meta) {
-      return [];
-    }
-
-    const pages = new Set<number>([1, meta.lastPage]);
-    for (let p = this.page() - 1; p <= this.page() + 1; p++) {
-      if (p >= 1 && p <= meta.lastPage) {
-        pages.add(p);
-      }
-    }
-
-    const sorted = [...pages].sort((a, b) => a - b);
-    const result: (number | '...')[] = [];
-    for (let i = 0; i < sorted.length; i++) {
-      if (i > 0 && sorted[i] - sorted[i - 1] > 1) {
-        result.push('...');
-      }
-      result.push(sorted[i]);
-    }
-    return result;
-  });
 
   constructor() {
     this.loadProducts();
