@@ -11,7 +11,7 @@
     <div class="detail-layout">
         <div class="detail-media">
             @if (product.imageUrl) {
-            <img class="detail-image" [src]="product.imageUrl" [alt]="product.name" />
+                <img class="detail-image" [src]="generatePublicImageUrl(product.imageUrl)" [alt]="product.name" />
             } @else {
             <div class="detail-image placeholder">🌶️</div>
             }

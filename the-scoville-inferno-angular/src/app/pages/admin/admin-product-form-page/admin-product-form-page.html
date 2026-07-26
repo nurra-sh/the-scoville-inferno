@@ -1,0 +1,82 @@
+<div class="admin-form">
+    <nav class="admin-tabs">
+      <span class="admin-tab active">Product Management</span>
+      <span class="admin-tab">Dashboard</span>
+    </nav>
+  
+    <h1 class="admin-title">Admin - Product Stock</h1>
+  
+    <h2 class="section-title">Control</h2>
+  
+    <div class="image-card">
+      <div class="image-preview">
+        @if (imagePreview()) {
+          <img [src]="imagePreview()" alt="preview" />
+        } @else {
+          <div class="image-placeholder">🌶️</div>
+        }
+      </div>
+  
+      <label class="upload-btn">
+        Upload Image
+        <input type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+      </label>
+    </div>
+  
+    <form class="info-card" [formGroup]="form" (ngSubmit)="save()">
+      <h2 class="section-title">Shipping information</h2>
+  
+      <div class="field">
+        <label>Title</label>
+        <input pInputText type="text" placeholder="Value" formControlName="name" />
+      </div>
+  
+      <div class="field">
+        <label>description</label>
+        <textarea
+          class="textarea"
+          placeholder="Value"
+          rows="4"
+          formControlName="description"
+        ></textarea>
+      </div>
+  
+      <div class="field">
+        <label>price</label>
+        <input pInputText type="number" placeholder="Value" formControlName="price" />
+      </div>
+  
+      <div class="field">
+        <label>category</label>
+        <div class="chips">
+          @for (category of categories(); track category.id) {
+            <button
+              type="button"
+              class="chip"
+              [class.active]="selectedCategoryId() === category.id"
+              (click)="selectCategory(category.id)"
+            >
+              @if (selectedCategoryId() === category.id) {
+                <span class="chip-check">✓</span>
+              }
+              {{ category.name }}
+            </button>
+          }
+        </div>
+      </div>
+    </form>
+  
+    <div class="actions">
+      <button pButton type="button" class="save-btn" [disabled]="saving()" (click)="save()">
+        Save
+      </button>
+      @if (isEdit()) {
+        <button pButton type="button" class="ghost-btn" (click)="hide()">
+          {{ isActive() ? 'Hide' : 'Show' }}
+        </button>
+        <button pButton type="button" class="ghost-btn" (click)="remove()">
+          Delete
+        </button>
+      }
+    </div>
+  </div>

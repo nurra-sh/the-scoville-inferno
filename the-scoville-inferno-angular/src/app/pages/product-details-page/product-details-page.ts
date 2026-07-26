@@ -6,6 +6,7 @@ import { finalize, switchMap, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-details-page',
@@ -81,5 +82,9 @@ export class ProductDetailsPage {
   // Заглушка
   stars(rating: number): boolean[] {
     return Array.from({ length: 5 }, (_, i) => i < rating);
+  }
+
+  generatePublicImageUrl(imageUrl: string) {
+    return `${environment.baseApiUrl}${imageUrl}`
   }
 }

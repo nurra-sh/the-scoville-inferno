@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
+import { environment } from '../../../environments/environment';
 
 const SORT_OPTIONS = [
   { key: 'new', label: 'New' },
@@ -136,6 +137,10 @@ export class ProductsPage {
     this.page.set(page);
     this.loadProducts();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  generatePublicImageUrl(imageUrl: string) {
+    return `${environment.baseApiUrl}${imageUrl}`
   }
 
   private loadProducts() {

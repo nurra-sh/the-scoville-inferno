@@ -13,6 +13,7 @@ import BrandsController from '#controllers/brands_controller'
 import CategoriesController from '#controllers/categories_controller'
 import HeatLevelsController from '#controllers/heat_levels_controller'
 import ProductsController from '#controllers/products_controller'
+import { RolesEnum } from '#enums/role_enums'
 
 const AuthController = () => import('#controllers/auth_controller')
 router.get('/', async () => {
@@ -54,3 +55,22 @@ router
         .prefix('/products'))
   })
   .prefix('/api/v1')
+
+
+// Admin router
+// Admin router
+router
+  .group(() => {
+    router
+      .group(() => {
+        router.get('/', [ProductsController, 'adminIndex'])
+        router.post('/', [ProductsController, 'adminStore'])
+        router.post('/upload-image', [ProductsController, 'adminUploadImage'])
+        router.get('/:id', [ProductsController, 'adminShow'])
+        router.patch('/:id', [ProductsController, 'adminUpdate'])
+        router.delete('/:id', [ProductsController, 'adminDestroy'])
+      })
+      .prefix('/products')
+  })
+  .prefix('/api/v1/admin')
+  .use([middleware.auth({ guards: ['api'] }), middleware.role([RolesEnum.ADMIN])])

@@ -18,11 +18,8 @@
             <h3 class="filters-title">Product Type</h3>
             @for (category of categories(); track category.id) {
             <label class="filter-option">
-                <p-checkbox
-                    [binary]="true"
-                    [ngModel]="selectedCategoryId() === category.id"
-                    (ngModelChange)="toggleCategory(category.id)"
-                />
+                <p-checkbox [binary]="true" [ngModel]="selectedCategoryId() === category.id"
+                    (ngModelChange)="toggleCategory(category.id)" />
                 <span>{{ category.name }}</span>
             </label>
             }
@@ -32,11 +29,8 @@
             <h3 class="filters-title">Filter by Agony Level</h3>
             @for (heatLevel of heatLevels(); track heatLevel.id) {
             <label class="filter-option">
-                <p-checkbox
-                    [binary]="true"
-                    [ngModel]="selectedHeatLevelId() === heatLevel.id"
-                    (ngModelChange)="toggleHeatLevel(heatLevel.id)"
-                />
+                <p-checkbox [binary]="true" [ngModel]="selectedHeatLevelId() === heatLevel.id"
+                    (ngModelChange)="toggleHeatLevel(heatLevel.id)" />
                 <span>{{ heatLevel.name }}</span>
             </label>
             }
@@ -47,22 +41,13 @@
     <section class="catalog">
         <div class="catalog-toolbar">
             <span class="search">
-                <input
-                    pInputText
-                    type="text"
-                    placeholder="Find your pain"
-                    [formControl]="searchControl"
-                />
+                <input pInputText type="text" placeholder="Find your pain" [formControl]="searchControl" />
             </span>
 
             <div class="sort">
                 @for (option of sortOptions; track option.key) {
-                <button
-                    type="button"
-                    class="sort-option"
-                    [class.active]="activeSort() === option.key"
-                    (click)="setSort(option.key)"
-                >
+                <button type="button" class="sort-option" [class.active]="activeSort() === option.key"
+                    (click)="setSort(option.key)">
                     {{ option.label }}
                 </button>
                 }
@@ -91,7 +76,7 @@
             @for (product of products(); track product.id) {
             <a class="product-card" [routerLink]="['/products', product.id]">
                 @if (product.imageUrl) {
-                <img class="product-image" [src]="product.imageUrl" [alt]="product.name" />
+                <img class="product-image" [src]="generatePublicImageUrl(product.imageUrl)" [alt]="product.name" />
                 } @else {
                 <div class="product-image placeholder">🌶️</div>
                 }
@@ -111,12 +96,7 @@
 
         @if (meta(); as pagination) {
         <nav class="pagination">
-            <button
-                type="button"
-                class="page-step"
-                [disabled]="page() === 1"
-                (click)="goToPage(page() - 1)"
-            >
+            <button type="button" class="page-step" [disabled]="page() === 1" (click)="goToPage(page() - 1)">
                 ← Weaker
             </button>
 
@@ -125,24 +105,16 @@
                 @if (pageNumber === '...') {
                 <span class="page-ellipsis">…</span>
                 } @else {
-                <button
-                    type="button"
-                    class="page-number"
-                    [class.active]="pageNumber === page()"
-                    (click)="goToPage(pageNumber)"
-                >
+                <button type="button" class="page-number" [class.active]="pageNumber === page()"
+                    (click)="goToPage(pageNumber)">
                     {{ pageNumber }}
                 </button>
                 }
                 }
             </div>
 
-            <button
-                type="button"
-                class="page-step"
-                [disabled]="page() === pagination.lastPage"
-                (click)="goToPage(page() + 1)"
-            >
+            <button type="button" class="page-step" [disabled]="page() === pagination.lastPage"
+                (click)="goToPage(page() + 1)">
                 Stronger →
             </button>
         </nav>

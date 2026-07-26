@@ -11,6 +11,7 @@ import { roleGuard } from './modules/auth/guards/role.guard';
 import { RolesEnum } from './modules/auth/types/auth.types';
 import { ProductsPage } from './pages/products-page/products-page';
 import { ProductDetailsPage } from './pages/product-details-page/product-details-page';
+import { AdminProductFormPage } from './pages/admin/admin-product-form-page/admin-product-form-page';
 
 export const routes: Routes = [
     {
@@ -59,6 +60,14 @@ export const routes: Routes = [
                     {
                       path: 'products',
                       component: AdminProductsPage  
+                    },
+                    {
+                        path: 'products/new',
+                        component: AdminProductFormPage  
+                    },
+                    {
+                        path: 'products/:id/edit',
+                        component: AdminProductFormPage  
                     }
                 ]
             }

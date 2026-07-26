@@ -1,0 +1,144 @@
+:host {
+    display: block;
+    padding: 2rem;
+  }
+  
+  .admin-products {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .admin-tabs {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-tab {
+    font-weight: 500;
+    color: #9ca3af;
+    cursor: default;
+  
+    &.active {
+      color: #111;
+      border-bottom: 2px solid #111;
+      padding-bottom: 0.5rem;
+    }
+  }
+  
+  .admin-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .add-btn {
+    background: #c1121f;
+    border-color: #c1121f;
+    font-weight: 600;
+  }
+  
+  .admin-search {
+    margin-left: auto;
+    min-width: 240px;
+  }
+  
+  .table-card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    thead {
+      background: #f6a3a3;
+    }
+  
+    th {
+      text-align: left;
+      padding: 1rem;
+      font-weight: 700;
+    }
+  
+    td {
+      padding: 1rem;
+      border-top: 1px solid #eee;
+    }
+  
+    tbody tr:nth-child(even) {
+      background: #fafafa;
+    }
+  }
+  
+  .description-cell {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .hidden-row {
+    opacity: 0.5;
+  }
+  
+  .empty-row,
+  .skeleton-row {
+    text-align: center;
+    color: #9ca3af;
+    padding: 2rem;
+  }
+  
+  .edit-btn {
+    background: #c1121f;
+    border-color: #c1121f;
+    font-weight: 600;
+  }
+  
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+  
+  .page-numbers {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .page-number,
+  .page-step {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    font-weight: 500;
+  
+    &:disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+  
+    &.active {
+      background: #111;
+      color: #fff;
+    }
+  }

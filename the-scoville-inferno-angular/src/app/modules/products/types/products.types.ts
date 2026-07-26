@@ -52,3 +52,35 @@ export interface GetProductsResponse {
 export interface GetProductResponse {
     data: Product
 }
+
+
+// ADMIN
+export interface AdminProductsFilters {
+    page?: number
+    perPage?: number
+    search?: string
+}
+
+export interface CreateProductBody {
+    name: string
+    description?: string | null
+    price: number
+    imageUrl?: string | null
+    scoville?: number
+    inStock?: boolean
+    isActive?: boolean
+    categoryId: number
+    brandId?: number | null
+    heatLevelId?: number | null
+}
+
+export type UpdateProductBody = Partial<CreateProductBody>
+
+export interface MutateProductResponse {
+    data: Product
+}
+
+export interface UploadImageResponse {
+  message: string
+    url: string
+}
