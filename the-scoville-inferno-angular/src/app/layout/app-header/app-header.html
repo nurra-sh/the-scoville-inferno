@@ -14,6 +14,21 @@
         </nav>
 
         <div class="actions">
+            @if (cartCount() > 0) {
+                <a routerLink="/cart">
+                    <p-overlaybadge [value]="cartCount()" severity="danger">
+                        <button pButton severity="secondary" outlined="true">
+                            <i class="pi pi-shopping-cart" pButtonIcon></i>
+                        </button>
+                    </p-overlaybadge>
+                </a>
+                } @else {
+                <a routerLink="/cart">
+                    <button pButton severity="secondary" outlined="true">
+                        <i class="pi pi-shopping-cart" pButtonIcon></i>
+                    </button>
+                </a>
+                }
             @if (!isAuthenticated()) {
                 <a routerLink="/login"><button pButton label="Sign in" severity="secondary" outlined="true">Sign in</button></a>
             <a routerLink="/register"><button pButton label="Register">Register</button></a>

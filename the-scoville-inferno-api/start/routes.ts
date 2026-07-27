@@ -9,14 +9,15 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-import BrandsController from '#controllers/brands_controller'
-import CategoriesController from '#controllers/categories_controller'
-import HeatLevelsController from '#controllers/heat_levels_controller'
-import ProductsController from '#controllers/products_controller'
 import { RolesEnum } from '#enums/role_enums'
-import ProfilesController from '#controllers/profiles_controller'
-
+const ProductsController = () => import('#controllers/products_controller')
+const HeatLevelsController = () => import('#controllers/heat_levels_controller')
+const CategoriesController = () => import('#controllers/categories_controller')
+const BrandsController = () => import('#controllers/brands_controller')
 const AuthController = () => import('#controllers/auth_controller')
+const ProfilesController = () => import('#controllers/profiles_controller')
+const CartsController = () => import('#controllers/carts_controller')
+
 router.get('/', async () => {
   return {
     hello: 'world',
@@ -26,7 +27,7 @@ router.get('/', async () => {
 // AUTH ROUTES
 router
   .group(() => {
-    ; ((((router
+    ; (((((router
       .group(() => {
         router.post('/login', [AuthController, 'login'])
         router.post('/register', [AuthController, 'register'])
@@ -58,7 +59,17 @@ router
         .group(() => {
           router.patch('/', [ProfilesController, 'update'])
         })
-        .prefix('/profile')
+        .prefix('/profile')),
+      router
+        .group(() => {
+          router.get('/', [CartsController, 'index'])
+          router.post('/', [CartsController, 'store'])
+          router.delete('/clear', [CartsController, 'clear'])
+          router.patch('/:id', [CartsController, 'update'])
+          router.delete('/:id', [CartsController, 'destroy'])
+        })
+        .prefix('/cart')
+        .use(middleware.auth({ guards: ['api'] }))
   })
   .prefix('/api/v1')
 

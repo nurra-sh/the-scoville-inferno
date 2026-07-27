@@ -1,88 +1,92 @@
 @if (loading()) {
-    <div class="detail-layout">
-        <p-skeleton height="420px" />
-        <div class="detail-info">
-            <p-skeleton width="60%" height="2rem" />
-            <p-skeleton width="30%" height="3rem" />
-            <p-skeleton height="8rem" />
-        </div>
+<div class="detail-layout">
+    <p-skeleton height="420px" />
+    <div class="detail-info">
+        <p-skeleton width="60%" height="2rem" />
+        <p-skeleton width="30%" height="3rem" />
+        <p-skeleton height="8rem" />
     </div>
-    } @else if (product(); as product) {
-    <div class="detail-layout">
-        <div class="detail-media">
-            @if (product.imageUrl) {
-                <img class="detail-image" [src]="generatePublicImageUrl(product.imageUrl)" [alt]="product.name" />
-            } @else {
-            <div class="detail-image placeholder">🌶️</div>
-            }
-    
-            <!-- Технические характеристики -->
-            <section class="specs">
-                <button type="button" class="specs-header" (click)="toggleSpecs()">
-                    <span>Technical Specifications</span>
-                    <span class="specs-arrow">{{ specsOpen() ? '⌃' : '⌄' }}</span>
-                </button>
-                @if (specsOpen()) {
-                <ul class="specs-list">
-                    <li><b>Category:</b> {{ product.category.name }}</li>
-                    @if (product.brand) {
-                    <li><b>Brand:</b> {{ product.brand.name }}</li>
-                    }
-                    <li><b>Scoville Heat Units (SHU):</b> {{ formatScoville(product.scoville) }}</li>
-                    @if (product.heatLevel) {
-                    <li><b>Heat Level:</b> {{ product.heatLevel.name }} ({{ scovilleRange(product) }} SHU)</li>
-                    }
-                    <li><b>Availability:</b> {{ product.inStock ? 'In stock' : 'Out of stock' }}</li>
-                    <li>
-                        <b>Warning:</b> Use in a well-ventilated area. Keep away from children, pets, and
-                        common sense.
-                    </li>
-                </ul>
+</div>
+} @else if (product(); as product) {
+<div class="detail-layout">
+    <div class="detail-media">
+        @if (product.imageUrl) {
+        <img class="detail-image" [src]="generatePublicImageUrl(product.imageUrl)" [alt]="product.name" />
+        } @else {
+        <div class="detail-image placeholder">🌶️</div>
+        }
+
+        <!-- Технические характеристики -->
+        <section class="specs">
+            <button type="button" class="specs-header" (click)="toggleSpecs()">
+                <span>Technical Specifications</span>
+                <span class="specs-arrow">{{ specsOpen() ? '⌃' : '⌄' }}</span>
+            </button>
+            @if (specsOpen()) {
+            <ul class="specs-list">
+                <li><b>Category:</b> {{ product.category.name }}</li>
+                @if (product.brand) {
+                <li><b>Brand:</b> {{ product.brand.name }}</li>
                 }
-            </section>
-        </div>
-    
-        <div class="detail-info">
-            <a class="back-link" routerLink="/products">← Back to products</a>
-            <h1 class="detail-name">{{ product.name }}</h1>
-            @if (product.heatLevel) {
-            <span class="detail-tag">{{ product.heatLevel.name }}</span>
+                <li><b>Scoville Heat Units (SHU):</b> {{ formatScoville(product.scoville) }}</li>
+                @if (product.heatLevel) {
+                <li><b>Heat Level:</b> {{ product.heatLevel.name }} ({{ scovilleRange(product) }} SHU)</li>
+                }
+                <li><b>Availability:</b> {{ product.inStock ? 'In stock' : 'Out of stock' }}</li>
+                <li>
+                    <b>Warning:</b> Use in a well-ventilated area. Keep away from children, pets, and
+                    common sense.
+                </li>
+            </ul>
             }
-            <div class="detail-price">${{ product.price }}</div>
-    
-            @if (product.description) {
-            <p class="detail-description">{{ product.description }}</p>
-            }
-    
-            <button
-                pButton
-                class="add-to-cart"
-                label="Add to Cart"
-                severity="danger"
-                [disabled]="!product.inStock"
-            >Add to Cart</button>
-            @if (!product.inStock) {
-            <p class="stock-note">Товара нет в наличии</p>
-            }
-        </div>
+        </section>
     </div>
-    
-    <!-- Отзывы: статичная верстка, бэкенд для ревью будет позже -->
-    <section class="reviews">
-        <h2 class="reviews-title">Latest reviews</h2>
-        <div class="reviews-grid">
-            @for (review of reviews; track review.author) {
-            <article class="review-card">
-                <div class="review-stars">
-                    @for (filled of stars(review.rating); track $index) {
-                    <span [class.filled]="filled">{{ filled ? '★' : '☆' }}</span>
-                    }
-                </div>
-                <h3 class="review-title">{{ review.title }}</h3>
-                <p class="review-text">{{ review.text }}</p>
-                <div class="review-author">{{ review.author }}</div>
-            </article>
-            }
-        </div>
-    </section>
-    }
+
+    <div class="detail-info">
+        <a class="back-link" routerLink="/products">← Back to products</a>
+        <h1 class="detail-name">{{ product.name }}</h1>
+        @if (product.heatLevel) {
+        <span class="detail-tag">{{ product.heatLevel.name }}</span>
+        }
+        <div class="detail-price">${{ product.price }}</div>
+
+        @if (product.description) {
+        <p class="detail-description">{{ product.description }}</p>
+        }
+
+        @if(!isProductInCart()) {
+        <button pButton type="button" class="add-to-cart" label="Add to Cart" icon="pi pi-shopping-cart"
+            severity="primary" [disabled]="!product.inStock || addingToCart()" [loading]="addingToCart()"
+            (click)="addToCart()"><i class="pi pi-shopping-cart"></i>Add to Cart</button>
+        }
+        @else {
+        <button pButton type="button" class="add-to-cart" label="Remove from Cart" icon="pi pi-shopping-cart"
+            severity="danger" [disabled]="!product.inStock || addingToCart()" [loading]="addingToCart()"
+            (click)="removeFromCart()"><i class="pi pi-shopping-cart"></i>Remove from Cart</button>
+        }
+
+        @if (!product.inStock) {
+        <p class="stock-note">Товара нет в наличии</p>
+        }
+    </div>
+</div>
+
+<!-- Отзывы: статичная верстка, бэкенд для ревью будет позже -->
+<section class="reviews">
+    <h2 class="reviews-title">Latest reviews</h2>
+    <div class="reviews-grid">
+        @for (review of reviews; track review.author) {
+        <article class="review-card">
+            <div class="review-stars">
+                @for (filled of stars(review.rating); track $index) {
+                <span [class.filled]="filled">{{ filled ? '★' : '☆' }}</span>
+                }
+            </div>
+            <h3 class="review-title">{{ review.title }}</h3>
+            <p class="review-text">{{ review.text }}</p>
+            <div class="review-author">{{ review.author }}</div>
+        </article>
+        }
+    </div>
+</section>
+}

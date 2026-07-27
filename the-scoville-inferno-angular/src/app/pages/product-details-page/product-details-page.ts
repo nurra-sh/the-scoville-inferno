@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductsApiService } from '../../modules/products/services/products-api.service';
 import { Product } from '../../modules/products/types/products.types';
@@ -7,6 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { environment } from '../../../environments/environment';
+import { CartStore } from '../../modules/cart/store/cart-store';
 
 @Component({
   selector: 'app-product-details-page',
@@ -18,10 +19,19 @@ export class ProductDetailsPage {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly productsApiService = inject(ProductsApiService);
+  private readonly cartStore = inject(CartStore);
 
   readonly product = signal<Product | null>(null);
   readonly loading = signal<boolean>(true);
   readonly specsOpen = signal<boolean>(true);
+  readonly addingToCart = this.cartStore.mutating;
+  readonly isProductInCart = computed(() => {
+    const product = this.product();
+    if (product) {
+      return Boolean(this.cartStore.getCartItem(product.id));
+    }
+    return false;
+  })
 
   // Заглушка
   readonly reviews = [
@@ -60,6 +70,29 @@ export class ProductDetailsPage {
         next: (response) => this.product.set(response.data),
         error: () => this.router.navigateByUrl('/products'),
       });
+  }
+
+  addToCart() {
+    const product = this.product();
+    if (!product || !product.inStock) {
+      return;
+    }
+    this.cartStore.add(product.id);
+  }
+
+  removeFromCart() {
+    const product = this.product();
+    
+    if (!product || !product.inStock) {
+      return;
+    }
+
+    const cartItemId = this.cartStore.getCartItem(product.id)?.id
+    
+    if (!cartItemId) {
+      return
+    }
+    this.cartStore.remove(cartItemId);
   }
 
   toggleSpecs() {

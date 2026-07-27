@@ -1,0 +1,87 @@
+<div class="cart-page">
+    <h1 class="cart-title">Shopping Cart</h1>
+
+    @if (loading()) {
+    <div class="cart-items">
+        @for (i of skeletons; track i) {
+        <div class="cart-item-skeleton">
+            <p-skeleton width="96px" height="96px" borderRadius="12px" />
+            <div class="cart-item-skeleton-body">
+                <p-skeleton width="60%" height="1.4rem" />
+                <p-skeleton width="30%" height="1.8rem" />
+            </div>
+        </div>
+        }
+    </div>
+    } @else if (isEmpty()) {
+    <div class="cart-empty">
+        <span class="cart-empty-emoji">🛒</span>
+        <h2>Ваша корзина пуста</h2>
+        <p>Самое время добавить немного боли в свою жизнь.</p>
+        <a routerLink="/products">
+            <button pButton label="К товарам" icon="pi pi-arrow-right" iconPos="right">К товарам</button>
+        </a>
+    </div>
+    } @else {
+    <div class="cart-items">
+        @for (item of items(); track item.id) {
+        <p-card styleClass="cart-item-card">
+            <div class="cart-item">
+                <div class="cart-item-media">
+                    @if (item.product.imageUrl) {
+                    <img class="cart-item-image" [src]="generatePublicImageUrl(item.product.imageUrl)"
+                        [alt]="item.product.name" />
+                    } @else {
+                    <div class="cart-item-image placeholder">🌶️</div>
+                    }
+                </div>
+
+                <div class="cart-item-info">
+                    <a class="cart-item-name" [routerLink]="['/products', item.product.id]">
+                        {{ item.product.name }}
+                    </a>
+
+                    <div class="cart-item-price-row">
+                        <span class="cart-item-price">${{ item.product.price }}</span>
+                        <p-tag [value]="tagLabel(item)" severity="danger" [rounded]="true" />
+                    </div>
+
+                    <div class="cart-item-controls">
+                        <p-inputnumber [ngModel]="item.quantity" (ngModelChange)="onQuantityChange(item, $event)"
+                            [showButtons]="true" buttonLayout="horizontal" [min]="1" [max]="99" [step]="1"
+                            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                            inputStyleClass="cart-qty-input" />
+
+                        <button pButton type="button" label="Remove" icon="pi pi-times" iconPos="right"
+                            severity="secondary" [outlined]="true" [disabled]="mutating()"
+                            (click)="removeItem(item)">
+                            <span>Remove</span><i class="pi pi-times"></i>
+                        </button>
+                            
+                    </div>
+                </div>
+
+                <div class="cart-item-line-total">${{ formatPrice(lineTotal(item)) }}</div>
+            </div>
+        </p-card>
+        }
+    </div>
+
+    <div class="cart-summary">
+        <p-divider />
+
+        <div class="cart-summary-row">
+            <span class="cart-summary-label">Total</span>
+            <span class="cart-summary-value">${{ formatPrice(summary().subtotal) }}</span>
+        </div>
+
+        <button pButton type="button" class="cart-checkout" label="Proceed to Checkout" severity="danger"
+            [disabled]="mutating()" (click)="checkout()"><span>Proceed to Checkout</span></button>
+
+        <button pButton type="button" label="Очистить корзину" icon="pi pi-trash" severity="secondary" [text]="true"
+            [disabled]="mutating()" (click)="clearCart()">
+            <i class="pi pi-trash"></i>
+            <span>Очистить корзину</span></button>
+    </div>
+    }
+</div>

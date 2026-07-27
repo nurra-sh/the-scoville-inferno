@@ -13,6 +13,7 @@ import { ProductsPage } from './pages/products-page/products-page';
 import { ProductDetailsPage } from './pages/product-details-page/product-details-page';
 import { AdminProductFormPage } from './pages/admin/admin-product-form-page/admin-product-form-page';
 import { AccountPage } from './pages/account-page/account-page';
+import { CartPage } from './pages/cart-page/cart-page';
 
 export const routes: Routes = [
     {
@@ -33,11 +34,11 @@ export const routes: Routes = [
                 path: 'register',
                 component: RegisterPage,
                 canActivate: [guestGuard]
-            }, 
+            },
             {
                 path: 'test',
                 component: TestPage,
-                canActivate: [authGuard] 
+                canActivate: [authGuard]
             },
             {
                 path: 'products',
@@ -55,9 +56,13 @@ export const routes: Routes = [
                 ]
             },
             {
+                path: 'cart',
+                component: CartPage
+            },
+            {
                 path: 'account',
                 component: AccountPage,
-                canActivate: [authGuard] 
+                canActivate: [authGuard]
             },
             {
                 path: 'admin',
@@ -65,16 +70,16 @@ export const routes: Routes = [
                 canActivate: [authGuard, roleGuard([RolesEnum.ADMIN])],
                 children: [
                     {
-                      path: 'products',
-                      component: AdminProductsPage  
+                        path: 'products',
+                        component: AdminProductsPage
                     },
                     {
                         path: 'products/new',
-                        component: AdminProductFormPage  
+                        component: AdminProductFormPage
                     },
                     {
                         path: 'products/:id/edit',
-                        component: AdminProductFormPage  
+                        component: AdminProductFormPage
                     }
                 ]
             }
