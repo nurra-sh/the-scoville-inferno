@@ -17,6 +17,7 @@ const BrandsController = () => import('#controllers/brands_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ProfilesController = () => import('#controllers/profiles_controller')
 const CartsController = () => import('#controllers/carts_controller')
+const OrdersController = () => import('#controllers/orders_controller')
 
 router.get('/', async () => {
   return {
@@ -70,6 +71,15 @@ router
         })
         .prefix('/cart')
         .use(middleware.auth({ guards: ['api'] }))
+      router
+        .group(() => {
+          router.get('/', [OrdersController, 'index'])
+          router.post('/checkout-session', [OrdersController, 'createCheckoutSession'])
+          router.post('/cod', [OrdersController, 'createCodOrder'])
+      })
+      .prefix('/orders')
+      .use(middleware.auth({ guards: ['api'] }))
+      router.post('/webhooks/stripe', [OrdersController, 'handleWebhook'])
   })
   .prefix('/api/v1')
 

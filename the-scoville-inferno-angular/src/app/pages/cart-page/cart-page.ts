@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DividerModule } from "primeng/divider";
@@ -8,9 +8,7 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { SkeletonModule } from "primeng/skeleton";
 import { TagModule } from "primeng/tag";
 import { CartStore } from "../../modules/cart/store/cart-store";
-import { MessageService } from "primeng/api";
 import { CartItem } from "../../modules/cart/types/cart.types";
-import { APP_TOAST_KEY } from "../../core/constants/toats.constants";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -31,7 +29,7 @@ import { environment } from "../../../environments/environment";
 })
 export class CartPage {
     private readonly cartStore = inject(CartStore)
-    private readonly messageService = inject(MessageService)
+    private readonly router = inject(Router)
 
     readonly items = this.cartStore.items
     readonly summary = this.cartStore.summary
@@ -57,12 +55,7 @@ export class CartPage {
     }
 
     checkout() {
-        this.messageService.add({
-            key: APP_TOAST_KEY,
-            severity: 'info',
-            summary: 'Скоро',
-            detail: 'Оформление заказа появится в одном из следующих обновлений',
-        })
+        this.router.navigate(['/checkout'])
     }
 
     lineTotal(item: CartItem): number {

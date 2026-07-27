@@ -1,0 +1,110 @@
+<div class="checkout-page">
+    <h1 class="checkout-title">Order Details</h1>
+  
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="checkout-form">
+  
+      <!-- Shipping Information -->
+      <section class="checkout-section">
+        <h2 class="section-title">Shipping information</h2>
+  
+        <div class="form-field">
+          <label for="fullName">Full Name</label>
+          <input
+            pInputText
+            id="fullName"
+            formControlName="fullName"
+            placeholder="Full Name"
+            [class.ng-invalid]="form.controls.fullName.invalid && form.controls.fullName.touched"
+          />
+          @if (form.controls.fullName.invalid && form.controls.fullName.touched) {
+            <small class="field-error">Required</small>
+          }
+        </div>
+  
+        <div class="form-field">
+          <label for="phone">Phone number</label>
+          <input
+            pInputText
+            id="phone"
+            formControlName="phone"
+            placeholder="Phone number"
+            [class.ng-invalid]="form.controls.phone.invalid && form.controls.phone.touched"
+          />
+          @if (form.controls.phone.invalid && form.controls.phone.touched) {
+            <small class="field-error">Required</small>
+          }
+        </div>
+  
+        <div class="form-field">
+          <label for="city">City</label>
+          <input
+            pInputText
+            id="city"
+            formControlName="city"
+            placeholder="Value"
+            [class.ng-invalid]="form.controls.city.invalid && form.controls.city.touched"
+          />
+          @if (form.controls.city.invalid && form.controls.city.touched) {
+            <small class="field-error">Required</small>
+          }
+        </div>
+  
+        <div class="form-field">
+          <label for="shippingAddress">Shipping address</label>
+          <textarea
+            pTextarea
+            id="shippingAddress"
+            formControlName="shippingAddress"
+            placeholder="Value"
+            rows="3"
+            [class.ng-invalid]="form.controls.shippingAddress.invalid && form.controls.shippingAddress.touched"
+          ></textarea>
+          @if (form.controls.shippingAddress.invalid && form.controls.shippingAddress.touched) {
+            <small class="field-error">Required</small>
+          }
+        </div>
+      </section>
+  
+      <!-- Payment Method -->
+      <section class="checkout-section">
+        <h2 class="section-title">Payment Method</h2>
+  
+        <div class="payment-options">
+          <label class="payment-option">
+            <input type="radio" formControlName="paymentMethod" value="debit_card" />
+            <span>Debit Card</span>
+          </label>
+  
+          <label class="payment-option">
+            <input type="radio" formControlName="paymentMethod" value="digital_wallet" />
+            <span>Digital Wallet</span>
+          </label>
+  
+          <label class="payment-option">
+            <input type="radio" formControlName="paymentMethod" value="cash_on_delivery" />
+            <span>Cash On Delivery</span>
+          </label>
+        </div>
+      </section>
+  
+      <!-- Order Summary -->
+      <section class="checkout-summary">
+        <h2 class="section-title">Order Summary</h2>
+  
+        <div class="summary-row">
+          <span class="summary-label">Total</span>
+          <span class="summary-value">${{ summary().subtotal | number:'1.2-2' }}</span>
+        </div>
+  
+        <button
+          pButton
+          type="submit"
+          label="Pay"
+          severity="danger"
+          class="pay-button"
+          [disabled]="submitting()"
+        >Pay</button>
+      </section>
+  
+    </form>
+  </div>

@@ -1,0 +1,50 @@
+.success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem 1rem;
+  }
+  
+  .success-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    background: var(--p-surface-50, #fafafa);
+    border: 1px solid var(--p-surface-200, #e5e7eb);
+    border-radius: 1.25rem;
+    padding: 3rem 2rem;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 6%);
+  }
+  
+  .success-icon {
+    font-size: 4rem;
+    line-height: 1;
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--p-surface-600, #4b5563);
+    line-height: 1.5;
+  }
+  
+  a {
+    margin-top: 0.5rem;
+    text-decoration: none;
+  
+    button {
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+    }
+  }

@@ -1,0 +1,137 @@
+.checkout-page {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+  
+  .checkout-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  // --- Секции ---
+  
+  .checkout-section {
+    background: var(--p-surface-50, #fafafa);
+    border: 1px solid var(--p-surface-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+  }
+  
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+  
+  // --- Поля формы ---
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--p-surface-700, #374151);
+    }
+  
+    input,
+    textarea {
+      width: 100%;
+    }
+  
+    textarea {
+      resize: vertical;
+    }
+  }
+  
+  .field-error {
+    font-size: 0.75rem;
+    color: var(--p-red-500, #ef4444);
+  }
+  
+  // --- Способы оплаты ---
+  
+  .payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  
+  .payment-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--p-surface-200, #e5e7eb);
+    border-radius: 0.625rem;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: border-color 0.15s;
+  
+    input[type='radio'] {
+      width: 1.125rem;
+      height: 1.125rem;
+      accent-color: var(--p-primary-500, #ef4444);
+      cursor: pointer;
+    }
+  
+    &:has(input:checked) {
+      border-color: var(--p-primary-500, #ef4444);
+    }
+  }
+  
+  // --- Итог заказа ---
+  
+  // Секция с розово-красным фоном, как на скриншоте
+  .checkout-summary {
+    background: #fca5a5;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .summary-label,
+  .summary-value {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  
+  .pay-button {
+    width: 100%;
+    font-weight: 700;
+  }
+  
+  // --- Адаптив ---
+  
+  @media (max-width: 560px) {
+    .checkout-page {
+      padding: 1.5rem 1rem 3rem;
+    }
+  
+    .checkout-section,
+    .checkout-summary {
+      padding: 1.25rem;
+    }
+  }

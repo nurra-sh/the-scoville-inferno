@@ -14,6 +14,8 @@ import { ProductDetailsPage } from './pages/product-details-page/product-details
 import { AdminProductFormPage } from './pages/admin/admin-product-form-page/admin-product-form-page';
 import { AccountPage } from './pages/account-page/account-page';
 import { CartPage } from './pages/cart-page/cart-page';
+import { CheckoutPage } from './pages/checkout-page/checkout-page';
+import { OrderSuccessPage } from './pages/order-success-page/order-success-page';
 
 export const routes: Routes = [
     {
@@ -64,6 +66,15 @@ export const routes: Routes = [
                 component: AccountPage,
                 canActivate: [authGuard]
             },
+            {
+                path: 'checkout',
+                component: CheckoutPage,
+                canActivate: [authGuard]
+              },
+              {
+                path: 'order-success',
+                component: OrderSuccessPage
+              },
             {
                 path: 'admin',
                 component: RouterOutletShell,
