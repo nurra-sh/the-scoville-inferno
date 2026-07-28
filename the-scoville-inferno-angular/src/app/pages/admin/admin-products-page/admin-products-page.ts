@@ -10,12 +10,13 @@ import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Pagination } from "../../../shared/ui/pagination/pagination";
+import { RouterLink } from '@angular/router';
 
 const PER_PAGE = 8
 
 @Component({
   selector: 'app-admin-products-page',
-  imports: [ReactiveFormsModule, DatePipe, ButtonModule, InputTextModule, Pagination],
+  imports: [ReactiveFormsModule, DatePipe, ButtonModule, InputTextModule, Pagination, RouterLink],
   templateUrl: './admin-products-page.html',
   styleUrl: './admin-products-page.scss',
 })

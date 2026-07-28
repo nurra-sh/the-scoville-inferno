@@ -2,6 +2,13 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { AdminProductsFilters, CreateProductBody, GetProductResponse, GetProductsResponse, MutateProductResponse, ProductsFilters, UpdateProductBody, UploadImageResponse } from "../types/products.types";
 import { environment } from "../../../../environments/environment";
+import { Observable } from "rxjs";
+
+export interface DashboardStats {
+  totalSales: number;
+  totalUsers: number;
+  totalOrders: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +64,9 @@ export class ProductsApiService {
     formData.append('image', file)
 
     return this.http.post<UploadImageResponse>(`${environment.adminApiUrl}/products/upload-image`, formData)
+  }
+
+  getDashboardStats(): Observable<DashboardStats> {
+    return this.http.get<DashboardStats>(`${environment.apiUrl}/admin/dashboard-stats`);
   }
 }

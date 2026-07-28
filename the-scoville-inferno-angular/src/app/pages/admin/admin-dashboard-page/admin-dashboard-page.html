@@ -1,0 +1,46 @@
+<div class="admin-wrapper">
+    <nav class="admin-tabs">
+        <a routerLink="/admin/products" class="admin-tab">Product Management</a>
+        <a routerLink="/admin/dashboard" class="admin-tab active">Dashboard</a>
+    </nav>
+
+    <h1 class="admin-title">Admin - Dashboard</h1>
+
+    @if (loading()) {
+        <div class="loading-state">Loading statistics...</div>
+    } @else if (stats()) {
+        <div class="stats-grid">
+            
+            <div class="stat-card">
+                <div class="stat-info">
+                    <span class="stat-label">Total Sales</span>
+                    <h2 class="stat-value">{{ stats()?.totalSales | currency:'USD':'symbol':'1.0-2' }}</h2>
+                </div>
+                <div class="stat-icon icon-sales">
+                    <i class="pi pi-chart-line"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <span class="stat-label">Total User</span>
+                    <h2 class="stat-value">{{ stats()?.totalUsers | number }}</h2>
+                </div>
+                <div class="stat-icon icon-users">
+                    <i class="pi pi-users"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <span class="stat-label">Total Order</span>
+                    <h2 class="stat-value">{{ stats()?.totalOrders | number }}</h2>
+                </div>
+                <div class="stat-icon icon-orders">
+                    <i class="pi pi-box"></i>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

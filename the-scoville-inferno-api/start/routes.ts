@@ -10,6 +10,7 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { RolesEnum } from '#enums/role_enums'
+import AdminDashboardController from '#controllers/admin_dashboards_controller'
 const ProductsController = () => import('#controllers/products_controller')
 const HeatLevelsController = () => import('#controllers/heat_levels_controller')
 const CategoriesController = () => import('#controllers/categories_controller')
@@ -88,6 +89,8 @@ router
 // Admin router
 router
   .group(() => {
+    router.get('/dashboard-stats', [AdminDashboardController, 'stats'])
+
     router
       .group(() => {
         router.get('/', [ProductsController, 'adminIndex'])

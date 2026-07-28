@@ -16,6 +16,7 @@ import { AccountPage } from './pages/account-page/account-page';
 import { CartPage } from './pages/cart-page/cart-page';
 import { CheckoutPage } from './pages/checkout-page/checkout-page';
 import { OrderSuccessPage } from './pages/order-success-page/order-success-page';
+import { AdminDashboardPage } from './pages/admin/admin-dashboard-page/admin-dashboard-page';
 
 export const routes: Routes = [
     {
@@ -91,7 +92,11 @@ export const routes: Routes = [
                     {
                         path: 'products/:id/edit',
                         component: AdminProductFormPage
-                    }
+                    },
+                    { 
+                        path: 'dashboard', 
+                        component: AdminDashboardPage 
+                    },
                 ]
             }
         ]
